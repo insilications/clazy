@@ -1,0 +1,9 @@
+# This file contains pkgconfig build requirements that get picked up
+# but are undesirable. One entry per line, no whitespace.
+#
+# Libraries not actually used; found only in a test supplied with the source
+Qt5Declarative
+Qt5WebKit
+Qt5WebKitWidgets
+# Disabled for now; Help module will use old QTextBrowser
+Qt5WebEngineWidgets
