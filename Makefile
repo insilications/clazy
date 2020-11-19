@@ -1,5 +1,5 @@
 PKG_NAME := clazy
-URL = file:///insilications/Downloads/qt-creator-opensource-src-4.14.0-beta1.tar.gz
+URL = https://github.com/KDE/clazy.git
 ARCHIVES = 
 
 include ../common/Makefile.common
