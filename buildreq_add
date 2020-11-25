@@ -1,6 +1,14 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
-llvm-dev
-mesa-dev
 buildreq-cmake
 buildreq-qmake
+libffi-dev
+libffi-staticdev
+libxml2-dev
+libxml2-staticdev
+llvm-dev
+mesa-dev
+ncurses-dev
+Z3-dev
+zlib-dev
+zlib-staticdev
