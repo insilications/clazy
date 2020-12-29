@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : clazy
 Version  : 1.8
-Release  : 49
+Release  : 50
 URL      : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Summary  : No detailed summary available
@@ -19,7 +19,6 @@ BuildRequires : Z3-dev
 BuildRequires : binutils-dev
 BuildRequires : boost-dev
 BuildRequires : buildreq-cmake
-BuildRequires : buildreq-qmake
 BuildRequires : doxygen
 BuildRequires : elfutils-dev
 BuildRequires : gcc-dev
@@ -33,38 +32,16 @@ BuildRequires : libxml2-staticdev
 BuildRequires : llvm11
 BuildRequires : llvm11-dev
 BuildRequires : llvm11-staticdev
-BuildRequires : mesa-dev
 BuildRequires : ncurses-dev
-BuildRequires : pkgconfig(Qt5Concurrent)
-BuildRequires : pkgconfig(Qt5Core)
-BuildRequires : pkgconfig(Qt5Designer)
-BuildRequires : pkgconfig(Qt5Gui)
-BuildRequires : pkgconfig(Qt5Help)
-BuildRequires : pkgconfig(Qt5Multimedia)
-BuildRequires : pkgconfig(Qt5Network)
-BuildRequires : pkgconfig(Qt5PrintSupport)
-BuildRequires : pkgconfig(Qt5Qml)
-BuildRequires : pkgconfig(Qt5Quick)
-BuildRequires : pkgconfig(Qt5QuickWidgets)
-BuildRequires : pkgconfig(Qt5Script)
-BuildRequires : pkgconfig(Qt5Sensors)
-BuildRequires : pkgconfig(Qt5SerialPort)
-BuildRequires : pkgconfig(Qt5Sql)
-BuildRequires : pkgconfig(Qt5Svg)
-BuildRequires : pkgconfig(Qt5Test)
-BuildRequires : pkgconfig(Qt5WebEngineWidgets)
-BuildRequires : pkgconfig(Qt5Widgets)
-BuildRequires : pkgconfig(Qt5Xml)
 BuildRequires : python3-dev
 BuildRequires : python3-staticdev
-BuildRequires : qtbase
-BuildRequires : qtbase-dev
 BuildRequires : valgrind-dev
 BuildRequires : zlib-dev
 BuildRequires : zlib-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
+Patch1: 0001-Disable-LINK_CLAZY_TO_LLVM-for-static-LLVM.patch
 
 %description
 This folder is for internal scripts which are only relevant if you're developing clazy itself.
@@ -118,6 +95,7 @@ man components for the clazy package.
 %prep
 %setup -q -n clazy
 cd %{_builddir}/clazy
+%patch1 -p1
 
 %build
 unset http_proxy
@@ -125,7 +103,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609233004
+export SOURCE_DATE_EPOCH=1609235301
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -150,19 +128,22 @@ export MAKEFLAGS=%{?_smp_mflags}
 %global _lto_cflags 1
 #global _lto_cflags %{nil}
 #
-# export PATH="/usr/lib64/ccache/bin:$PATH"
-# export CCACHE_NOHASHDIR=1
-# export CCACHE_DIRECT=1
-# export CCACHE_SLOPPINESS=pch_defines,locale,time_macros
-# export CCACHE_DISABLE=1
+export PATH="/usr/lib64/ccache/bin:$PATH"
+export CCACHE_NOHASHDIR=1
+export CCACHE_DIRECT=1
+export CCACHE_SLOPPINESS=pch_defines,locale,time_macros,file_macro
+unset CCACHE_DISABLE
 export CCACHE_DIR=/var/tmp/ccache
 ## altflags1 end
 %cmake ..
 make  %{?_smp_mflags}
+## ccache stats
+ccache -s
+## ccache stats
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609233004
+export SOURCE_DATE_EPOCH=1609235301
 rm -rf %{buildroot}
 pushd clr-build
 %make_install

@@ -18,3 +18,5 @@ llvm-license
 llvm-man
 llvm-staticdev32
 llvm-staticdev
+mesa
+mesa-dev

@@ -2,7 +2,6 @@
 # picked up automatically. One name per line, no whitespace.
 binutils-dev
 buildreq-cmake
-buildreq-qmake
 doxygen
 elfutils-dev
 gcc-dev
@@ -16,7 +15,6 @@ libxml2-staticdev
 llvm11
 llvm11-dev
 llvm11-staticdev
-mesa-dev
 ncurses-dev
 python3-dev
 python3-staticdev
@@ -25,5 +23,3 @@ valgrind-dev
 Z3-dev
 zlib-dev
 zlib-staticdev
-qtbase
-qtbase-dev
