@@ -30,3 +30,5 @@ zlib-dev
 zlib-staticdev
 libedit
 libedit-dev
+xz-dev
+xz-staticdev
