@@ -9,11 +9,16 @@ glibc-dev
 glibc-staticdev
 libffi-dev
 libffi-staticdev
+libstdc++
 libstdc++-dev
 libxml2-dev
 libxml2-staticdev
 llvm11
+llvm11-bin
+llvm11-data
 llvm11-dev
+llvm11-lib
+llvm11-libexec
 llvm11-staticdev
 ncurses-dev
 python3-dev
@@ -23,3 +28,5 @@ valgrind-dev
 Z3-dev
 zlib-dev
 zlib-staticdev
+libedit
+libedit-dev
