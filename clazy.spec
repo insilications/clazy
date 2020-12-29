@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : clazy
 Version  : 1.8
-Release  : 54
+Release  : 55
 URL      : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Summary  : No detailed summary available
@@ -63,18 +63,6 @@ Group: Data
 data components for the clazy package.
 
 
-%package dev
-Summary: dev components for the clazy package.
-Group: Development
-Requires: clazy-bin = %{version}-%{release}
-Requires: clazy-data = %{version}-%{release}
-Provides: clazy-devel = %{version}-%{release}
-Requires: clazy = %{version}-%{release}
-
-%description dev
-dev components for the clazy package.
-
-
 %package doc
 Summary: doc components for the clazy package.
 Group: Documentation
@@ -92,6 +80,15 @@ Group: Default
 man components for the clazy package.
 
 
+%package staticdev
+Summary: staticdev components for the clazy package.
+Group: Default
+Requires: clazy-dev = %{version}-%{release}
+
+%description staticdev
+staticdev components for the clazy package.
+
+
 %prep
 %setup -q -n clazy
 cd %{_builddir}/clazy
@@ -103,7 +100,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609242808
+export SOURCE_DATE_EPOCH=1609243851
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -130,7 +127,7 @@ export MAKEFLAGS=%{?_smp_mflags}
 #
 unset CCACHE_DISABLE
 export PATH="/usr/lib64/ccache/bin:$PATH"
-export CCACHE_NOHASHDIR=true
+#export CCACHE_NOHASHDIR=true
 export CCACHE_SLOPPINESS=pch_defines,time_macros,locale
 export CCACHE_DIR=/var/tmp/ccache
 export CCACHE_BASEDIR=/builddir/build/BUILD
@@ -146,7 +143,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609242808
+export SOURCE_DATE_EPOCH=1609243851
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -167,10 +164,6 @@ rm -f %{buildroot}/usr/lib/qtcreator/libqbsqtprofilesetup.prl
 %defattr(-,root,root,-)
 /usr/share/metainfo/org.kde.clazy.metainfo.xml
 
-%files dev
-%defattr(-,root,root,-)
-/usr/lib64/ClazyPlugin.so
-
 %files doc
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/clazy/*
@@ -178,3 +171,7 @@ rm -f %{buildroot}/usr/lib/qtcreator/libqbsqtprofilesetup.prl
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man1/clazy.1
+
+%files staticdev
+%defattr(-,root,root,-)
+/usr/lib64/ClazyPlugin.a
