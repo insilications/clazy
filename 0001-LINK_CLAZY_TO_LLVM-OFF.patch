@@ -1,14 +1,14 @@
-From f86e79461781a9b02258a133be6ce52912b93d28 Mon Sep 17 00:00:00 2001
+From 65da3afb32fd5b30072299ae68611e4eb8ee823f Mon Sep 17 00:00:00 2001
 From: insilications <boboniboni@gmail.com>
 Date: Tue, 29 Dec 2020 08:25:29 -0300
 Subject: [PATCH] LINK_CLAZY_TO_LLVM OFF
 
 ---
- CMakeLists.txt | 5 +----
- 1 file changed, 1 insertion(+), 4 deletions(-)
+ CMakeLists.txt | 71 +++++++++++++++++++++++++++++++++++++++++++++++++-
+ 1 file changed, 70 insertions(+), 1 deletion(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 46173fa..f75557b 100644
+index 46173fa..7f8b6f7 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -44,7 +44,7 @@ add_definitions(-D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS)
@@ -20,16 +20,83 @@ index 46173fa..f75557b 100644
  option(APPIMAGE_HACK "Links the clazy plugin to the clang tooling libs only. For some reason this is needed when building on our old CentOS 6.8 to create the AppImage." OFF)
  option(CLAZY_MAN_PAGE "Builds the man page." ON)
  
-@@ -265,9 +265,6 @@ if (NOT CLAZY_BUILD_WITH_CLANG)
-   set(CPACK_PACKAGE_VERSION_PATCH ${CLAZY_VERSION_PATCH})
+@@ -266,7 +266,76 @@ if (NOT CLAZY_BUILD_WITH_CLANG)
    include(CPack)
  else()
--  set(LLVM_LINK_COMPONENTS
--    Support
--    )
+   set(LLVM_LINK_COMPONENTS
++    XRay
++    WindowsManifest
++    TableGen
++    Symbolize
++    DebugInfoPDB
++    OrcJIT
++    OrcError
++    JITLink
++    ObjectYAML
++    MIRParser
++    MCA
++    LTO
++    ObjCARCOpts
++    Extensions
++    Polly
++    PollyISL
++    Passes
++    Coroutines
++    ipo
++    Instrumentation
++    Vectorize
++    Linker
++    IRReader
++    AsmParser
++    FrontendOpenMP
++    LineEditor
++    LibDriver
++    Interpreter
++    FuzzMutate
++    MCJIT
++    ExecutionEngine
++    RuntimeDyld
++    DWARFLinker
++    DlltoolDriver
++    Option
++    DebugInfoGSYM
++    Coverage
++    X86Disassembler
++    X86AsmParser
++    X86CodeGen
++    CFGuard
++    GlobalISel
++    SelectionDAG
++    AsmPrinter
++    DebugInfoDWARF
++    CodeGen
++    Target
++    ScalarOpts
++    InstCombine
++    AggressiveInstCombine
++    TransformUtils
++    BitWriter
++    Analysis
++    ProfileData
++    Object
++    TextAPI
++    MCParser
++    BitReader
++    Core
++    Remarks
++    BitstreamReader
++    X86Desc
++    MCDisassembler
++    MC
++    DebugInfoCodeView
++    DebugInfoMSF
++    BinaryFormat
++    X86Info
+     Support
++    Demangle
+     )
    add_clang_library(clazyPlugin
      ${CLAZY_PLUGIN_SRCS}
- 
 -- 
 2.28.0
 

@@ -26,3 +26,4 @@ export CCACHE_DIR=/var/tmp/ccache
 export CCACHE_BASEDIR=/builddir/build/BUILD
 export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
 export CCACHE_DEBUG=true
+export CCACHE_NODIRECT=true

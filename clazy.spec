@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : clazy
 Version  : 1.8
-Release  : 53
+Release  : 54
 URL      : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Summary  : No detailed summary available
@@ -103,7 +103,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609241654
+export SOURCE_DATE_EPOCH=1609242808
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -136,6 +136,7 @@ export CCACHE_DIR=/var/tmp/ccache
 export CCACHE_BASEDIR=/builddir/build/BUILD
 export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
 export CCACHE_DEBUG=true
+export CCACHE_NODIRECT=true
 ## altflags1 end
 %cmake .. -DCMAKE_BUILD_TYPE=Release
 make  %{?_smp_mflags}  V=1 VERBOSE=1
@@ -145,7 +146,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609241654
+export SOURCE_DATE_EPOCH=1609242808
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
