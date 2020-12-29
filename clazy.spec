@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : clazy
 Version  : 1.8
-Release  : 56
+Release  : 57
 URL      : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Summary  : No detailed summary available
@@ -45,6 +45,8 @@ BuildRequires : pkgconfig(libffi)
 BuildRequires : python3-dev
 BuildRequires : python3-staticdev
 BuildRequires : valgrind-dev
+BuildRequires : xz-dev
+BuildRequires : xz-staticdev
 BuildRequires : zlib-dev
 BuildRequires : zlib-staticdev
 # Suppress stripping binaries
@@ -71,6 +73,18 @@ Group: Data
 data components for the clazy package.
 
 
+%package dev
+Summary: dev components for the clazy package.
+Group: Development
+Requires: clazy-bin = %{version}-%{release}
+Requires: clazy-data = %{version}-%{release}
+Provides: clazy-devel = %{version}-%{release}
+Requires: clazy = %{version}-%{release}
+
+%description dev
+dev components for the clazy package.
+
+
 %package doc
 Summary: doc components for the clazy package.
 Group: Documentation
@@ -88,15 +102,6 @@ Group: Default
 man components for the clazy package.
 
 
-%package staticdev
-Summary: staticdev components for the clazy package.
-Group: Default
-Requires: clazy-dev = %{version}-%{release}
-
-%description staticdev
-staticdev components for the clazy package.
-
-
 %prep
 %setup -q -n clazy
 cd %{_builddir}/clazy
@@ -107,47 +112,39 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609262535
+export SOURCE_DATE_EPOCH=1609281321
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
 ## altflags1 content
-export CFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread"
-#
-export CXXFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -pthread"
-#
-export FCFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread"
-export FFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread"
-export CFFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread"
-#
-export LDFLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -lpthread -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc"
-#
-export AR=gcc-ar
-export RANLIB=gcc-ranlib
-export NM=gcc-nm
-#
-export MAKEFLAGS=%{?_smp_mflags}
-#
-%global _lto_cflags 1
-#global _lto_cflags %{nil}
-#
+%global _lto_cflags %{nil}
 unset CCACHE_DISABLE
 export PATH="/usr/lib64/ccache/bin:$PATH"
 export CCACHE_NOHASHDIR=true
-export CCACHE_SLOPPINESS=pch_defines,time_macros,locale
+export CCACHE_CPP2=true
+export CCACHE_SLOPPINESS=pch_defines,time_macros,locale,file_stat_matches,file_stat_matches_ctime,include_file_ctime,include_file_mtime,modules,system_headersclang_index_store,file_macro
 export CCACHE_DIR=/var/tmp/ccache
 export CCACHE_BASEDIR=/builddir/build/BUILD
-export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
-export CCACHE_DEBUG=true
+#export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
+#export CCACHE_DEBUG=true
 #export CCACHE_NODIRECT=true
+export MAKEFLAGS="-j12"
+#
+unset LDFLAGS
+unset CFLAGS
+unset CXXFLAGS
+#
+#export CFLAGS="-O2 -march=native -mtune=native -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,-O2 -falign-functions=32 -flimit-function-alignment -floop-nest-optimize -fno-math-errno -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -Wno-error -pipe -ffat-lto-objects -fPIC -pthread"
+#
+#export CXXFLAGS="-O2 -march=native -mtune=native -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,-O2 -falign-functions=32 -flimit-function-alignment -floop-nest-optimize -fno-math-errno -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=bfd -fuse-linker-plugin -malign-data=cacheline -Wno-error -pipe -ffat-lto-objects -Wl,--enable-new-dtags -fPIC -pthread"
+#
 ## altflags1 end
 %cmake .. -DCMAKE_BUILD_TYPE=Release \
--DCMAKE_C_FLAGS_RELEASE="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread" \
--DCMAKE_CXX_FLAGS_RELEASE="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -fvisibility-inlines-hidden -pipe -ffat-lto-objects -fPIC -pthread" \
--DCMAKE_EXE_LINKER_FLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -lpthread -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc" \
--DCMAKE_MODULE_LINKER_FLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -lpthread -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc" \
--DCMAKE_SHARED_LINKER_FLAGS="-O3 -march=native -mtune=native -fgraphite-identity -Wall -Wl,--as-needed -Wl,--build-id=sha1 -Wl,--enable-new-dtags -Wl,--hash-style=gnu -Wl,-O2 -Wl,-z,now -Wl,-z,relro -falign-functions=32 -flimit-function-alignment -fasynchronous-unwind-tables -fdevirtualize-at-ltrans -floop-nest-optimize -fno-math-errno -fno-semantic-interposition -fno-stack-protector -fno-trapping-math -ftree-loop-distribute-patterns -ftree-loop-vectorize -ftree-vectorize -funroll-loops -fuse-ld=lld -fuse-linker-plugin -malign-data=cacheline -feliminate-unused-debug-types -fipa-pta -flto=16 -fno-plt -Wl,-sort-common -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -lpthread -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc" \
--DLINK_CLAZY_TO_LLVM:BOOL=OFF
+-DCMAKE_C_FLAGS_RELEASE="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++" \
+-DCMAKE_CXX_FLAGS_RELEASE="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++" \
+-DCMAKE_EXE_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc" \
+-DCMAKE_MODULE_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc" \
+-DCMAKE_SHARED_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc"
 make  %{?_smp_mflags}  V=1 VERBOSE=1
 ## ccache stats
 ccache -s
@@ -155,7 +152,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609262535
+export SOURCE_DATE_EPOCH=1609281321
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
@@ -176,6 +173,10 @@ rm -f %{buildroot}/usr/lib/qtcreator/libqbsqtprofilesetup.prl
 %defattr(-,root,root,-)
 /usr/share/metainfo/org.kde.clazy.metainfo.xml
 
+%files dev
+%defattr(-,root,root,-)
+/usr/lib64/ClazyPlugin.so
+
 %files doc
 %defattr(0644,root,root,0755)
 %doc /usr/share/doc/clazy/*
@@ -183,7 +184,3 @@ rm -f %{buildroot}/usr/lib/qtcreator/libqbsqtprofilesetup.prl
 %files man
 %defattr(0644,root,root,0755)
 /usr/share/man/man1/clazy.1
-
-%files staticdev
-%defattr(-,root,root,-)
-/usr/lib64/ClazyPlugin.a
