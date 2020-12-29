@@ -1,14 +1,29 @@
 # This file contains additional build requirements that did not get
 # picked up automatically. One name per line, no whitespace.
+binutils-dev
 buildreq-cmake
 buildreq-qmake
+doxygen
+elfutils-dev
+gcc-dev
+glibc-dev
+glibc-staticdev
 libffi-dev
 libffi-staticdev
+libstdc++-dev
 libxml2-dev
 libxml2-staticdev
-llvm-dev
+llvm11
+llvm11-dev
+llvm11-staticdev
 mesa-dev
 ncurses-dev
+python3-dev
+python3-staticdev
+Sphinx
+valgrind-dev
 Z3-dev
 zlib-dev
 zlib-staticdev
+qtbase
+qtbase-dev
