@@ -18,9 +18,12 @@ export MAKEFLAGS=%{?_smp_mflags}
 %global _lto_cflags 1
 #global _lto_cflags %{nil}
 #
-export PATH="/usr/lib64/ccache/bin:$PATH"
-export CCACHE_NOHASHDIR=1
-export CCACHE_DIRECT=1
-export CCACHE_SLOPPINESS=pch_defines,locale,time_macros,file_macro
 unset CCACHE_DISABLE
+export PATH="/usr/lib64/ccache/bin:$PATH"
+export CCACHE_NOHASHDIR=true
+export CCACHE_DIRECT=true
+export CCACHE_SLOPPINESS=pch_defines,locale,time_macros,file_macro
 export CCACHE_DIR=/var/tmp/ccache
+export CCACHE_BASEDIR=/builddir/build/BUILD
+export CCACHE_LOGFILE=/var/tmp/ccache/cache.debug
+export CCACHE_DEBUG=true
