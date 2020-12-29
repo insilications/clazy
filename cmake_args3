@@ -1,0 +1,6 @@
+-DCMAKE_BUILD_TYPE=Release
+-DCMAKE_C_FLAGS_RELEASE="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++"
+-DCMAKE_CXX_FLAGS_RELEASE="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++"
+-DCMAKE_EXE_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc"
+-DCMAKE_MODULE_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc"
+-DCMAKE_SHARED_LINKER_FLAGS="-O3 -march=native -mtune=native -Wl,--as-needed -Wl,--build-id=sha1 -fuse-ld=bfd -fuse-linker-plugin -Wno-error -pipe -ffat-lto-objects -fPIC -pthread -static-libstdc++ -fPIC -pthread -lpthread -static-libstdc++ -lffi -ledit -lz -ldl -ltinfo -lm -lxml2 -lgcc_s -lc"

@@ -1,4 +1,6 @@
+ld-linux-x86-64.so.2
 libLLVM-11.so
 libc.so.6
 libclang-cpp.so.11
 libgcc_s.so.1
+libpthread.so.0
