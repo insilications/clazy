@@ -30,5 +30,6 @@ valgrind-dev
 xz-dev
 xz-staticdev
 Z3-dev
+Z3-staticdev
 zlib-dev
 zlib-staticdev
