@@ -1,14 +1,14 @@
-From bbda50114b84b1e1ec3cc64403661edc11f5edd2 Mon Sep 17 00:00:00 2001
+From 6e6da2044a3e9c95af9304860367b1a048c34666 Mon Sep 17 00:00:00 2001
 From: insilications <boboniboni@gmail.com>
 Date: Fri, 1 Jan 2021 10:11:42 -0300
 Subject: [PATCH] Clazy STATIC build
 
 ---
- CMakeLists.txt | 4 ++--
- 1 file changed, 2 insertions(+), 2 deletions(-)
+ CMakeLists.txt | 7 +++++--
+ 1 file changed, 5 insertions(+), 2 deletions(-)
 
 diff --git a/CMakeLists.txt b/CMakeLists.txt
-index 46173fa..5ae3196 100644
+index 46173fa..083b7bf 100644
 --- a/CMakeLists.txt
 +++ b/CMakeLists.txt
 @@ -44,7 +44,7 @@ add_definitions(-D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS)
@@ -20,7 +20,17 @@ index 46173fa..5ae3196 100644
  option(APPIMAGE_HACK "Links the clazy plugin to the clang tooling libs only. For some reason this is needed when building on our old CentOS 6.8 to create the AppImage." OFF)
  option(CLAZY_MAN_PAGE "Builds the man page." ON)
  
-@@ -156,7 +156,7 @@ endmacro()
+@@ -120,6 +120,9 @@ macro(link_to_llvm name is_standalone)
+       endif()
+ 
+       target_link_libraries(${name} ${clang_lib})
++      target_link_libraries(${name} clangTooling)
++      target_link_libraries(${name} clangToolingCore)
++      target_link_libraries(${name} ${clang_tooling_refactoring_lib})
+     endforeach()
+     target_link_libraries(${name} clangTooling)
+     target_link_libraries(${name} clangToolingCore)
+@@ -156,7 +159,7 @@ endmacro()
  macro(add_clang_plugin name)
    set(srcs ${ARGN})
  
