@@ -1,1 +1,6 @@
 0001-Clazy-STATIC-build.patch
+#clazy-1.7-gnuinstalldirs.patch
+#clazy-1.7-llvm11-1.patch
+#clazy-1.7-llvm11-2.patch
+0002-Fix1.patch
+0003-New2.patch
