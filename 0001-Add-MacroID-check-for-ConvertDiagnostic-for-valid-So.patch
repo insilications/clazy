@@ -1,0 +1,31 @@
+From 146d8bbfa4974960b6addb2e454e873049a8c86f Mon Sep 17 00:00:00 2001
+From: insilications <boboniboni@gmail.com>
+Date: Tue, 5 Jan 2021 02:12:11 -0300
+Subject: [PATCH 1/2] Add MacroID check for ConvertDiagnostic for valid
+ SourceLocation
+
+---
+ src/FixItExporter.cpp | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/src/FixItExporter.cpp b/src/FixItExporter.cpp
+index 44240cf..0a016f2 100644
+--- a/src/FixItExporter.cpp
++++ b/src/FixItExporter.cpp
+@@ -110,7 +110,12 @@ tooling::Diagnostic FixItExporter::ConvertDiagnostic(const Diagnostic &Info)
+                                     tooling::Diagnostic::Warning,
+                                     CurrentBuildDir);
+     // FIXME: Sometimes the file path is an empty string.
+-    ToolingDiag.Message = tooling::DiagnosticMessage(messageText, SourceMgr, Info.getLocation());
++    if (Info.getLocation().isMacroID()) {
++        auto MacroLoc = SourceMgr.getFileLoc(Info.getLocation());
++        ToolingDiag.Message = tooling::DiagnosticMessage(messageText, SourceMgr, MacroLoc);
++    } else {
++        ToolingDiag.Message = tooling::DiagnosticMessage(messageText, SourceMgr, Info.getLocation());
++    }
+     return ToolingDiag;
+ }
+ 
+-- 
+2.28.0
+
