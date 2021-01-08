@@ -5,7 +5,7 @@
 %define keepstatic 1
 Name     : clazy
 Version  : 1.8
-Release  : 70
+Release  : 71
 URL      : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Source0  : file:///insilications/build/clearlinux/packages/clazy/clazy-v1.8.tar.gz
 Summary  : No detailed summary available
@@ -53,8 +53,7 @@ BuildRequires : zlib-staticdev
 # Suppress stripping binaries
 %define __strip /bin/true
 %define debug_package %{nil}
-Patch1: 0001-Add-MacroID-check-for-ConvertDiagnostic-for-valid-So.patch
-Patch2: 0002-Clazy-STATIC-build.patch
+Patch1: 0002-Clazy-STATIC-build.patch
 
 %description
 This folder is for internal scripts which are only relevant if you're developing clazy itself.
@@ -106,7 +105,6 @@ staticdev components for the clazy package.
 %setup -q -n clazy
 cd %{_builddir}/clazy
 %patch1 -p1
-%patch2 -p1
 
 %build
 unset http_proxy
@@ -114,7 +112,7 @@ unset https_proxy
 unset no_proxy
 export SSL_CERT_FILE=/var/cache/ca-certs/anchors/ca-certificates.crt
 export LANG=C.UTF-8
-export SOURCE_DATE_EPOCH=1609827975
+export SOURCE_DATE_EPOCH=1610137209
 mkdir -p clr-build
 pushd clr-build
 export GCC_IGNORE_WERROR=1
@@ -160,7 +158,7 @@ ccache -s
 popd
 
 %install
-export SOURCE_DATE_EPOCH=1609827975
+export SOURCE_DATE_EPOCH=1610137209
 rm -rf %{buildroot}
 pushd clr-build
 %make_install
