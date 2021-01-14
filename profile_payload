@@ -1,0 +1,11 @@
+export LD_LIBRARY_PATH="$PWD/lib:$LD_LIBRARY_PATH"
+export CLAZY_CXX="/usr/bin/clazy"
+export CLAZYSTANDALONE_CXX="/usr/bin/clazy-standalone"
+#
+export CLANGXX="/usr/bin/clang++"
+#
+chmod +x ./clazy
+sudo cp ./clazy /usr/bin/clazy
+sudo cp bin/clazy-standalone /usr/bin/clazy-standalone
+sudo cp lib/ClazyPlugin.so /usr/lib64/ClazyPlugin.so
+python ../tests/run_tests.py --verbose

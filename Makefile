@@ -1,5 +1,5 @@
 PKG_NAME := clazy
-URL = https://invent.kde.org/sdk/clazy.git
+URL = https://github.com/insilications/clazy-clr.git
 ARCHIVES = 
 
 include ../common/Makefile.common
